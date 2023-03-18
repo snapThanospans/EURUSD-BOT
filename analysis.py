@@ -15,7 +15,8 @@ class Analysis:
         self.is_live_order
         self.is_running_trade
 
-
+    def something(self):
+        return true
     def get_signal(self):
         """
             Compare previous close with current close.
@@ -30,8 +31,14 @@ class Analysis:
 
         return self.is_live_order(l_v) and self.is_running_trade(r_t)
 
+##jlsfdkjl
 
+<<<<<<< HEAD
     def is_live_order(l_v):
+=======
+     
+    def is_live_order(self):
+>>>>>>> ad36549ad2ab0be066b9c371980eade7306f0843
         """
             Gets the length of the orders list and return a 
                 boolean value if empty or not.
