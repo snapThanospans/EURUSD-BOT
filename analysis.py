@@ -28,12 +28,10 @@ class Analysis:
         l_v = len(self.live_order)
         r_t = len(self.running_trades)
 
-
-        if self.current_close > self.previous_close:
-            return True
+        return self.is_live_order(l_v) and self.is_running_trade(r_t)
 
 
-    def is_live_order(self):
+    def is_live_order(l_v):
         """
             Gets the length of the orders list and return a 
                 boolean value if empty or not.
@@ -43,9 +41,9 @@ class Analysis:
             return:
                 ifLiveOrders --> boolean
         """
-        # return True
+        return l_v == 0
 
-    def is_running_trade(self):
+    def is_running_trade(r_t):
         """
             Gets the length of the orders list and return a 
                 boolean value if empty or not.
@@ -55,4 +53,4 @@ class Analysis:
             return:
                 ifRunnigTrades --> boolean
         """
-        # return True
+        return r_t == 0
