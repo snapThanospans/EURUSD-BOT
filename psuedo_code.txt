@@ -1,0 +1,24 @@
+MAIN LOOP
+
+PLAN:
+    """
+        We have an infinate while loop.
+        This while loop will constantly request for data then feed to the analisys class.
+        If we have taken trades, we must not take any more trades until they are closed.
+        After taking the maximum trades, we store the tokens/ref and store them in a list.
+        We need an inner loop to track the progress.
+    """
+
+PSUEDO CODE:
+    """
+        while true:
+            get data
+            analyse data
+            
+            if signal is true and lenght of open positions is 0:
+                open the max number of positions and put the stop loss.
+            else if take profit is true and  lenght of open positions is greater than 0:
+                loop through the list of open positions.
+                close all positions
+            
+    """
