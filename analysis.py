@@ -26,10 +26,7 @@ class Analysis:
                 running_trades
         """
    
-        l_v = len(self.live_order)
-        r_t = len(self.running_trades)
-
-
+     
         if self.current_close > self.previous_close:
             return True
 
