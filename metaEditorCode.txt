@@ -1,0 +1,40 @@
+// NB: Calculation for lotsize changes.
+
+int start(){
+   double buyPrice = Ask + 2 * Point;
+   double sellPrice = Ask - 2 * Point;
+   
+   double buySL  = buyPrice  - 3 * Point;
+   double sellSL = sellPrice + 3 * Point;
+   
+   double buyTP  = buyPrice  + 7 * Point;
+   double sellTP = sellPrice - 7 * Point;
+   
+   //OrderSend("symbol",cmd,lot,price,slippage,sl,tp);
+   int buy  = OrderSend("EURUSD", OP_BUYSTOP , 0.1, buyPrice, 0, buySL,  buyTP);
+   int sell = OrderSend("EURUSD", OP_SELLSTOP, 0.1, sellPrice,0, sellSL, sellTP);
+   return 0;
+}
+
+bool getSignal(){
+   return OrdersTotal() == 0;
+}
+
+void deleteLiveOrders() {
+   for (int i = OrdersTotal(); 1 >= 0; i--) {
+      if (OrderType() == OP_BUYSTOP || 
+          OrderType() == OP_SELLSTOP) {
+      
+         bool done = OrderClose(OrderTicket(),OrderLots(),Bid,0,NULL);
+      }
+   }
+}
+
+void OnTick() {  
+  //start();
+
+   if (getSignal()){
+      start();
+   }
+   
+}
