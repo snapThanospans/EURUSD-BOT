@@ -2,26 +2,26 @@
 
 int start(){ 
   //OrderSend("symbol",cmd,lot,price,slippage,sl,tp);
-  
-   buyStop();
-   sellStop();
+   double lotSize = getTargetLotSize();
+   buyStop(lotSize);
+   sellStop(lotSize);
    return 0;
 }
 
-void buyStop() {
+void buyStop(double lotSize) {
   double buyPrice = Ask + 2 * Point;
   double buySL  = buyPrice  - 3 * Point;
   double buyTP  = buyPrice  + 7 * Point;
    
-  int buy  = OrderSend("EURUSD", OP_BUYSTOP , 0.1, buyPrice, 0, buySL,  buyTP);
+  int buy  = OrderSend("EURUSD", OP_BUYSTOP , lotSize, buyPrice, 0, buySL,  buyTP);
 }
 
-void sellStop() {
+void sellStop(double lotSize) {
    double sellPrice = Ask - 2 * Point;
    double sellSL = sellPrice + 3 * Point;
    double sellTP = sellPrice - 7 * Point;
    
-   int sell = OrderSend("EURUSD", OP_SELLSTOP, 0.1, sellPrice,0, sellSL, sellTP);
+   int sell = OrderSend("EURUSD", OP_SELLSTOP, lotSize, sellPrice,0, sellSL, sellTP);
 }
 
 bool getSignal(int totalOrders){
@@ -52,15 +52,17 @@ void deleteLiveOrder(int ticket) {
     }
 }
 
-double getTargetLotSize(double balance) {
-   int roundedBalance = MathRound(balance);
+double getTargetLotSize() {
+   double balance = AccountBalance(); //good
+   Print("In the func: ", balance);
+   int roundedBalance = MathRound(balance); // & good
    double targetSize = (roundedBalance * 0.012) / 3;
    double roundedTargetSize = MathRound(targetSize * 100) / 100.0;
    return roundedTargetSize;
 }
 
+
 void OnTick() {
-   //double balance = AccountBalance();
    int totalOrders = OrdersTotal();
    if (getSignal(totalOrders)) {
       start();
